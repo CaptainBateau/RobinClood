@@ -167,7 +167,6 @@ public class WaterManager : MonoBehaviour
 
     public void WoobleCloud()
     {
-        Debug.Log("Wooble Wooble Wooble");
         if(_isGrowing)
             transform.localScale =  Vector3.one * _growthCurve.Evaluate((Time.time - _woobleStartTimer) / _woobleMaxTimer);
         else

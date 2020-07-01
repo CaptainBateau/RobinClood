@@ -17,11 +17,19 @@ public class ShadowManager : MonoBehaviour
 
     WaterManager waterManager;
 
-    GameObject _cloud;
+    Rigidbody2D rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        waterManager = GetComponentInParent<WaterManager>();
+    }
 
     public void Update()
     {
-        transform.Translate(Input.GetAxis("Vertical") * Vector3.up * _Speed * Time.deltaTime);
+        rb.velocity = Vector2.up * Input.GetAxisRaw("Vertical") * _Speed * Time.deltaTime;
+
+        //transform.Translate(Input.GetAxis("Vertical") * Vector3.up * _Speed * Time.deltaTime);
         if (Input.GetKey(KeyCode.Space) && overPool)
         {
             Vacuum();
@@ -34,40 +42,40 @@ public class ShadowManager : MonoBehaviour
 
     void Vacuum()
     {
-        if (_cloud.TryGetComponent<WaterManager>(out waterManager))
-        {
-            waterManager.RefillCloud();
-        }
+        waterManager.RefillCloud();
     }
 
     void Release()
     {
-        if (_cloud.TryGetComponent<WaterManager>(out waterManager))
+        waterManager.EmptyCloud();
+        for (int i = 0; i < _waterDropsSpawner.Length; i++)
         {
-            waterManager.EmptyCloud();
-            for (int i = 0; i < _waterDropsSpawner.Length; i++)
-            {
-                GameObject tempSpawn = _waterDropsSpawner[i].Spawn(_dropletsPrefab.gameObject);
-            }
+            GameObject tempSpawn = _waterDropsSpawner[i].Spawn(_dropletsPrefab.gameObject);
         }
 
     }
 
-    private void OnTriggerEnter(Collider collider)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.layer == _poolLayerMask)
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Pool"))
         {
             overPool = true;
         }
-        if (collider.gameObject.layer == _gardenLayerMask)
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Garden"))
         {
             overGarden = true;
         }
     }
 
-    private void OnTriggerExit(Collider collider)
+    private void OnTriggerExit2D(Collider2D collider)
     {
-        overPool = false;
-        overGarden = false;
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Pool"))
+        {
+            overPool = false;
+        }
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Garden"))
+        {
+            overGarden = false;
+        }
     }
 }
