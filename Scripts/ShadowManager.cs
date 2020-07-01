@@ -18,7 +18,7 @@ public class ShadowManager : MonoBehaviour
     WaterManager waterManager;
 
     Rigidbody2D rb;
-
+    int i;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,6 +52,7 @@ public class ShadowManager : MonoBehaviour
         {
             GameObject tempSpawn = _waterDropsSpawner[i].Spawn(_dropletsPrefab.gameObject);
         }
+
 
     }
 

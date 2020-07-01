@@ -7,20 +7,33 @@ public class PoolManager : MonoBehaviour
 {
 
 	public Sprite[] _sprites;
-	public float _maxValue;
-	public float _refillPerSecond;
+	public float _refillPerSecond = 10;
+	public int _tickPerSecond;
 	public float _maxCapacity;
 	public float _currentCapacity;
+	float _refillTimer;
 
-
-
+	float _tickTime;
 	private void Awake()
 	{
 		_currentCapacity = _maxCapacity;
+		_tickTime = 1 / (float)_refillPerSecond;
 	}
-
+	void Update()
+	{
+		if (Time.time > _refillTimer + _tickTime) 
+			RefillPool();
+	}
 	public void RemoveWater(float toRemove)
 	{
+		_currentCapacity -= toRemove;
+		_currentCapacity = Mathf.Clamp(_currentCapacity, 0, _maxCapacity);
+	}
 
+	public void RefillPool()
+	{
+		_refillTimer = Time.time;
+		_currentCapacity += _refillPerSecond/(float)_tickPerSecond;
+		_currentCapacity = Mathf.Clamp(_currentCapacity, 0, _maxCapacity);
 	}
 }
