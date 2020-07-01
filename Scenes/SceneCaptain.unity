@@ -178,7 +178,7 @@ MonoBehaviour:
   _maxCapacity: 120
   _currentCapacity: 0
   _isRefilling: 0
-  _refillPerTick: 8
+  _refillPerTick: 5
   _refillTickRate: 5
   _isEmptying: 0
   _emptyPerTick: 15
@@ -188,9 +188,127 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0a4fdf50f1611d94ebeb49ae64c3355e, type: 3}
   - {fileID: 21300000, guid: 08ce83f36e166ca419c49f1120b02784, type: 3}
   - {fileID: 21300000, guid: 42937a9e9211f714ea26823a7ba8ba36, type: 3}
-  _woobleMultiplier: 0
-  _woobleMaxTimer: 0
-  _woobleStartTimer: 0
+  _growthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0048828125
+      value: 1.4989624
+      inSlope: -0.4312422
+      outSlope: -0.4312422
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.109051935
+    - serializedVersion: 3
+      time: 0.2284576
+      value: 1.20859
+      inSlope: -0.37846425
+      outSlope: -0.37846425
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49998236
+      value: 1.1937702
+      inSlope: 2.2307582
+      outSlope: 2.2307582
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.2406095
+    - serializedVersion: 3
+      time: 0.78919095
+      value: 1.1889611
+      inSlope: 2.1472228
+      outSlope: 2.1472228
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.6832551
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _shrinkCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.50146484
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.24435054
+      value: 0.68214655
+      inSlope: -1.1304252
+      outSlope: -1.1304252
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.23454897
+    - serializedVersion: 3
+      time: 0.38086712
+      value: 0.60867876
+      inSlope: 1.3284321
+      outSlope: 1.3284321
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.11890944
+    - serializedVersion: 3
+      time: 0.54930747
+      value: 0.82294613
+      inSlope: 0.014305889
+      outSlope: 0.014305889
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.61771727
+      value: 0.9009672
+      inSlope: -2.597727
+      outSlope: -2.597727
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.18606502
+    - serializedVersion: 3
+      time: 0.78713965
+      value: 0.7316873
+      inSlope: -0.18548687
+      outSlope: -0.18548687
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _woobleMaxTimer: 0.5
 --- !u!114 &657582456
 MonoBehaviour:
   m_ObjectHideFlags: 0
