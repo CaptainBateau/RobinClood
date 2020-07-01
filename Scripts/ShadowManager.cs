@@ -26,7 +26,7 @@ public class ShadowManager : MonoBehaviour
         {
             Vacuum();
         }
-        if (Input.GetKey(KeyCode.Space) && overPool)
+        if (Input.GetKey(KeyCode.Space) && overGarden)
         {
             Release();
         }
