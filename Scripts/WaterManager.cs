@@ -44,6 +44,11 @@ public class WaterManager : MonoBehaviour
             RefillCloud();
         if (_isEmptying && _lastEmptyTickTime + (1 / (float)_emptyTickRate) < Time.time)
             EmptyCloud();
+
+        if (_isWoobling)
+        {
+            WoobleCloud();
+        }
     }
 
     public void RefillCloud()
@@ -54,22 +59,22 @@ public class WaterManager : MonoBehaviour
         if (_firstStageValue <= _currentCapacity && !_firstStage)
         {
             _firstStage = true;
-            ChangeStage(0);
+            ChangeStage(1);
         }
         if (_secondStageValue <= _currentCapacity && !_secondStage)
         {
             _secondStage = true;
-            ChangeStage(1);
+            ChangeStage(2);
         }
         if (_thirdStageValue <= _currentCapacity && !_thirdStage)
         {
             _thirdStage = true;
-            ChangeStage(2);
+            ChangeStage(3);
         }
         if(_currentCapacity < _firstStageValue && !_defaultStage)
         {
             _defaultStage = true;
-            ChangeStage(-1);
+            ChangeStage(0);
         }
     }
 
@@ -91,17 +96,17 @@ public class WaterManager : MonoBehaviour
         if (_firstStageValue > _currentCapacity && _firstStage)
         {
             _firstStage = false;
-            ChangeStage(-1);
+            ChangeStage(0, false);
         }
         if (_secondStageValue > _currentCapacity && _secondStage)
         {
             _secondStage = false;
-            ChangeStage(0);
+            ChangeStage(1, false);
         }
         if (_thirdStageValue > _currentCapacity && _thirdStage)
         {
             _thirdStage = false;
-            ChangeStage(1);
+            ChangeStage(2, false);
         }
     }
 
@@ -123,32 +128,38 @@ public class WaterManager : MonoBehaviour
     }
 
     //Change Sprite + wooble
-    public void ChangeStage(int stage)
+    public void ChangeStage(int stage, bool increasing = true)
     {
         switch (stage)
         {
-            case 0:
-                _spriteRenderer.sprite = _faceSprites[1];
-                transform.localScale *= _woobleMultiplier;
-                _woobleStartTimer = Time.time;
-                break;
             case 1:
-
-                _spriteRenderer.sprite = _faceSprites[2];
-                transform.localScale *= _woobleMultiplier;
+                _spriteRenderer.sprite = _faceSprites[1];
+                _isGrowing = increasing;
                 _woobleStartTimer = Time.time;
+                _isWoobling = true;
                 break;
             case 2:
 
-                _spriteRenderer.sprite = _faceSprites[3];
-                transform.localScale *= _woobleMultiplier;
+                _spriteRenderer.sprite = _faceSprites[2];
+                _isGrowing = increasing;
                 _woobleStartTimer = Time.time;
+                _isWoobling = true;
                 break;
-            default:
+            case 3:
+
+                _spriteRenderer.sprite = _faceSprites[3];
+                _isGrowing = increasing;
+                _woobleStartTimer = Time.time;
+                _isWoobling = true;
+                break;
+            case 0:
 
                 _spriteRenderer.sprite = _faceSprites[0];
-                transform.localScale *= _woobleMultiplier;
-                _woobleStartTimer = Time.time;
+                _isGrowing = increasing;
+                _woobleStartTimer = Time.time; 
+                _isWoobling = true;
+                break;
+            default:
                 break;
                
         }
@@ -156,10 +167,18 @@ public class WaterManager : MonoBehaviour
 
     public void WoobleCloud()
     {
-
+        if(_isGrowing)
+            transform.localScale =  Vector3.one * _growthCurve.Evaluate((Time.time - _woobleStartTimer) / _woobleMaxTimer);
+        else
+            transform.localScale = Vector3.one * _shrinkCurve.Evaluate((Time.time - _woobleStartTimer) / _woobleMaxTimer);
+        if (Time.time - _woobleStartTimer > _woobleMaxTimer)
+            _isWoobling = false;
     }
 
-    public float _woobleMultiplier = 1.2f;
+    bool _isWoobling;
+    bool _isGrowing;
+    public AnimationCurve _growthCurve;
+    public AnimationCurve _shrinkCurve;
     public float _woobleMaxTimer;
-    public float _woobleStartTimer;
+    float _woobleStartTimer;
 }
