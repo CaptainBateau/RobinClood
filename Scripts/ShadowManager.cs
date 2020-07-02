@@ -8,7 +8,7 @@ public class ShadowManager : MonoBehaviour
     public float _waterDrunkBySecond;
     public float _waterReleasedBySecond;
 
-    public Vector2 _minMaxShadowMovementRange;
+    public Vector2 _minMaxShadowDistanceRange;
 
     public LayerMask _poolLayerMask;
     public LayerMask _gardenLayerMask;
@@ -38,17 +38,15 @@ public class ShadowManager : MonoBehaviour
 
     public void Update()
     {
-        if (-_minMaxShadowMovementRange.x > transform.localPosition.y && transform.localPosition.y > -_minMaxShadowMovementRange.y)
-        {
-            rb.velocity = Vector2.up * Input.GetAxisRaw("Vertical") * _Speed * Time.deltaTime;
-        }
+        
+        transform.Translate(Input.GetAxis("Vertical") * Vector3.up * _Speed * Time.deltaTime);
+        transform.localPosition = new Vector2(0, Mathf.Clamp(transform.localPosition.y, -_minMaxShadowDistanceRange.y, -_minMaxShadowDistanceRange.x));
 
-        //transform.Translate(Input.GetAxis("Vertical") * Vector3.up * _Speed * Time.deltaTime);
         if (Input.GetKey(KeyCode.Space) && overPool)
         {
             Vacuum();
         }
-        if (Input.GetKey(KeyCode.Space) && overGarden && waterManager._currentCapacity>0)
+        if (Input.GetKey(KeyCode.Space) && overGarden && waterManager._currentCapacity > 0)
         {
             Release();
             if (Time.time > _tempTimer + _dropletsTimer)
@@ -94,6 +92,7 @@ public class ShadowManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        Debug.Log("ayzgd");
         if (collider.gameObject.layer == LayerMask.NameToLayer("Pool"))
         {
             overPool = true;

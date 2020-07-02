@@ -267,7 +267,7 @@ MonoBehaviour:
   _poolRenderer: {fileID: 72061277}
   _sprites: []
   _refillPerSecond: 10
-  _tickPerSecond: 5
+  _refreshPerSecond: 0
   _maxCapacity: 500
   _currentCapacity: 500
 --- !u!1 &528295828
@@ -1166,10 +1166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1f1273879690743b9dfcae47e68d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Speed: 1000
+  _Speed: 10
   _waterDrunkBySecond: 0
   _waterReleasedBySecond: 0
-  _minMaxShadowMovementRange: {x: 3.5, y: 12}
+  _minMaxShadowDistanceRange: {x: 1, y: 15}
   _poolLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -1192,7 +1192,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572326929}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

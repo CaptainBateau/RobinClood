@@ -49,7 +49,7 @@ public class WaterManager : MonoBehaviour
     {
         if (_isRefilling && _lastRefillTickTime + (1 / (float)_refillTickRate) < Time.time)
             RefillCloud();
-        if (_isEmptying && _lastEmptyTickTime + (1 / (float)_emptyTickRate) < Time.time && _currentCapacity>0)
+        if (_isEmptying && _lastEmptyTickTime + (1 / (float)_emptyTickRate) < Time.time && _currentCapacity > 0)
             EmptyCloud();
         if(_currentCapacity == 0)
         {
@@ -114,6 +114,7 @@ public class WaterManager : MonoBehaviour
         {
             //Lose the game
             _spriteRenderer.sprite = _deadFace;
+
         }
         _currentCapacity -= waterLost;
         _currentCapacity = Mathf.Clamp(_currentCapacity, 0, _maxCapacity);

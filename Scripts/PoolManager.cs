@@ -8,7 +8,7 @@ public class PoolManager : MonoBehaviour
 	public SpriteRenderer _poolRenderer;
 	public Sprite[] _sprites;
 	public float _refillPerSecond = 10;
-	public int _tickPerSecond;
+	public int _refreshPerSecond;
 	public float _maxCapacity;
 	public float _currentCapacity;
 	float _refillTimer;
@@ -35,7 +35,7 @@ public class PoolManager : MonoBehaviour
 	public void RefillPool()
 	{
 		_refillTimer = Time.time;
-		_currentCapacity += _refillPerSecond/(float)_tickPerSecond;
+		_currentCapacity += _refillPerSecond/(float)_refreshPerSecond;
 		_currentCapacity = Mathf.Clamp(_currentCapacity, 0, _maxCapacity);
 	}
 }
