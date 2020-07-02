@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class VacuumedDropsBehaviour : MonoBehaviour
 {
-    [SerializeField]
     Transform _cloud;
     public float _speedEvaporate;
+
+    private void Awake()
+    {
+        _cloud = FindObjectOfType<CloudManager>().gameObject.transform;
+    }
 
     private void Update()
     {
