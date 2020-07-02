@@ -18,15 +18,8 @@ public class WaterManager : MonoBehaviour
     public int _emptyTickRate;
     float _lastEmptyTickTime;
 
-    float _firstStageValue;
-    bool _firstStage = false;
-    float _secondStageValue;
-    bool _secondStage = false;
-    float _thirdStageValue;
-    bool _thirdStage = false;
-
-    bool _defaultStage;
-    SpriteRenderer _spriteRenderer;
+    public SpriteRenderer _cloudSprite;
+    Transform _cloudTransform;
     public Sprite[] _faceSprites;
 
     public Sprite _pissingFace;
@@ -38,12 +31,8 @@ public class WaterManager : MonoBehaviour
 
     private void Awake()
     {
-        TryGetComponent<SpriteRenderer>(out _spriteRenderer);
-        float stageValue = _maxCapacity / _faceSprites.Length;
-        _firstStageValue = stageValue;
-        _secondStageValue = stageValue * 2;
-        _thirdStageValue = stageValue * 3;
-
+        // TryGetComponent<SpriteRenderer>(out _cloudSprite);
+        _cloudTransform = _cloudSprite.transform;
     }
     private void Update()
     {
@@ -53,14 +42,14 @@ public class WaterManager : MonoBehaviour
             EmptyCloud();
         if(_currentCapacity == 0)
         {
-            _spriteRenderer.sprite = _hurtFace;
+            _cloudSprite.sprite = _hurtFace;
         }
         if(!_isRefilling && !_isEmptying && _currentCapacity != 0)
         {
-            _spriteRenderer.sprite = _neutralFace;
+            _cloudSprite.sprite = _neutralFace;
             if (_currentCapacity == _maxCapacity)
             {
-                _spriteRenderer.sprite = _fullFace;
+                _cloudSprite.sprite = _fullFace;
             }
         }
 
@@ -77,12 +66,13 @@ public class WaterManager : MonoBehaviour
         _lastRefillTickTime = Time.time;
         _currentCapacity += _refillPerTick;
         _currentCapacity = Mathf.Clamp(_currentCapacity, 0, _maxCapacity);
-        _spriteRenderer.sprite = _fillingFace;
+        _cloudSprite.sprite = _fillingFace;
         _isGrowing = true;
         _isWoobling = true;
         if (_currentCapacity == _maxCapacity)
         {
-            _spriteRenderer.sprite = _fullFace;
+            _cloudTransform.transform.localScale = Vector3.one;
+            _cloudSprite.sprite = _fullFace;
             _isGrowing = false;
             _isWoobling = false;
         }
@@ -90,7 +80,7 @@ public class WaterManager : MonoBehaviour
 
     public void EmptyCloud()
     {
-        _spriteRenderer.sprite = _pissingFace;
+        _cloudSprite.sprite = _pissingFace;
         _lastEmptyTickTime = Time.time;
     }
     public void DropWater()
@@ -113,7 +103,7 @@ public class WaterManager : MonoBehaviour
         if (_currentCapacity < waterLost)
         {
             //Lose the game
-            _spriteRenderer.sprite = _deadFace;
+            _cloudSprite.sprite = _deadFace;
 
         }
         _currentCapacity -= waterLost;
@@ -126,60 +116,20 @@ public class WaterManager : MonoBehaviour
         Debug.Log("POWERRRRRR " + power);
     }
 
-    ////Change Sprite + wooble
-    //public void ChangeStage(int stage, bool increasing = true)
-    //{
-    //    switch (stage)
-    //    {
-    //        case 1:
-    //            _spriteRenderer.sprite = _faceSprites[1];
-    //            _isGrowing = increasing;
-    //            _woobleStartTimer = Time.time;
-    //            _isWoobling = true;
-    //            break;
-    //        case 2:
-
-    //            _spriteRenderer.sprite = _faceSprites[2];
-    //            _isGrowing = increasing;
-    //            _woobleStartTimer = Time.time;
-    //            _isWoobling = true;
-    //            break;
-    //        case 3:
-
-    //            _spriteRenderer.sprite = _faceSprites[3];
-    //            _isGrowing = increasing;
-    //            _woobleStartTimer = Time.time;
-    //            _isWoobling = true;
-    //            break;
-
-    //        case 0:
-    //            _spriteRenderer.sprite = _faceSprites[0];
-    //            _isGrowing = increasing;
-    //            _woobleStartTimer = Time.time; 
-    //            _isWoobling = true;
-    //            break;
-    //        default:
-    //            break;
-               
-    //    }
-    //}
-
     public void WoobleCloud()
     {
         if(_isGrowing)
-            transform.localScale =  Vector3.one * _growthCurve.Evaluate(((Time.time - _woobleStartTimer)%1) / _woobleMaxTimer);
-        //transform.localScale =  Vector3.one * _growthCurve.Evaluate((Time.time - _woobleStartTimer) / _woobleMaxTimer);
-        //transform.localScale = Vector3.one * (m_wantedCurved + m_idlt.Evaluate((Time.time % m_time) / m_time) * m_curveMultiplyEffect);
-        //else
-        //    transform.localScale = Vector3.one * _shrinkCurve.Evaluate((Time.time - _woobleStartTimer) / _woobleMaxTimer);
+            _cloudTransform.transform.localScale =  Vector3.one * _growthCurve.Evaluate(((Time.time - _woobleStartTimer)%1) / _woobleMaxTimer);
         if (Time.time - _woobleStartTimer > _woobleMaxTimer)
+        {
+            _cloudTransform.transform.localScale = Vector3.one;
             _isWoobling = false;
+        }
     }
 
     bool _isWoobling;
     bool _isGrowing;
     public AnimationCurve _growthCurve;
-    //public AnimationCurve _shrinkCurve;
     public float _woobleMaxTimer;
     float _woobleStartTimer;
 }

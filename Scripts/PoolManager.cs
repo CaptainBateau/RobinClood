@@ -15,6 +15,7 @@ public class PoolManager : MonoBehaviour
 
 	float _tickTime;
 
+	public Vector2 _poolMovementRange;
 
 	private void Awake()
 	{
@@ -37,5 +38,10 @@ public class PoolManager : MonoBehaviour
 		_refillTimer = Time.time;
 		_currentCapacity += _refillPerSecond/(float)_refreshPerSecond;
 		_currentCapacity = Mathf.Clamp(_currentCapacity, 0, _maxCapacity);
+	}
+
+	public void MoveSprite()
+	{
+		//transform.position = new Vector3(0,, 0);
 	}
 }
