@@ -196,3 +196,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5a33e5f8194653d42afd8009db7708e5, type: 3}
   - {fileID: 21300000, guid: 81113f9a670b14c4295cddb7ed75e1f3, type: 3}
   - {fileID: 21300000, guid: 2edb4c4a47f0ca6469c3f1c7dd62f0a4, type: 3}
+  - {fileID: 21300000, guid: 6e28b60a12f052a45ab295adcd67431c, type: 3}
+  _particles: {fileID: 9204231465584533997, guid: 66b13af8323ba1e4b8979ff7461a9a84,
+    type: 3}
