@@ -15,7 +15,10 @@ public class PoolManager : MonoBehaviour
 
 	float _tickTime;
 
-	public Vector2 _poolMovementRange;
+	public float _topOfThePool;
+	public float _bottonOfThePool;
+
+
 
 	private void Awake()
 	{
@@ -26,6 +29,7 @@ public class PoolManager : MonoBehaviour
 	{
 		if (Time.time > _refillTimer + _tickTime) 
 			RefillPool();
+		MoveSprite();
 	}
 	public void RemoveWater(float toRemove)
 	{
@@ -42,6 +46,14 @@ public class PoolManager : MonoBehaviour
 
 	public void MoveSprite()
 	{
-		//transform.position = new Vector3(0,, 0);
+		_poolRenderer.transform.localPosition = new Vector3(_poolRenderer.transform.localPosition.x, 
+												Mathf.Lerp(_bottonOfThePool, _topOfThePool, _currentCapacity / (float)_maxCapacity),
+												_poolRenderer.transform.localPosition.z);
+		if (_currentCapacity <= _maxCapacity / 10f)
+		{
+			_poolRenderer.enabled = false;
+		}
+		else
+			_poolRenderer.enabled = true;
 	}
 }

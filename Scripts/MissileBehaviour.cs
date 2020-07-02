@@ -18,10 +18,10 @@ public class MissileBehaviour : MonoBehaviour
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
         WaterManager waterManager;
-        if(collision.gameObject.TryGetComponent<WaterManager>(out waterManager))
+        if(collider.gameObject.TryGetComponent<WaterManager>(out waterManager))
         {
             waterManager.LoseWater(_waterLostOnHit);
         }

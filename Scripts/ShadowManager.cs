@@ -92,7 +92,7 @@ public class ShadowManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("ayzgd");
+
         if (collider.gameObject.layer == LayerMask.NameToLayer("Pool"))
         {
             overPool = true;
