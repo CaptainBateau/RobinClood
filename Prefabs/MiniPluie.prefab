@@ -221,4 +221,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 265f99c331c82a64f8df8bfcd78520f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waterPower: 0
+  _waterPower: 5

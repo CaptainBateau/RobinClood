@@ -6,6 +6,7 @@ public class GardenManager : MonoBehaviour
 {
     public float _startingGrowMeter = 0f;
     public float _fullyGrownMeter = 45f;
+    float _currentGrownMeter;
 
     SpriteRenderer _spriteRenderer;
     public Sprite[] _plantStagesSprites;
@@ -13,12 +14,12 @@ public class GardenManager : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = this.GetComponent<SpriteRenderer>();
+        _currentGrownMeter = _startingGrowMeter;
     }
 
     public void Grow(float waterReceived)
     {
-        float _currentGrownMeter;
-        _currentGrownMeter = _startingGrowMeter + (waterReceived*Time.deltaTime);
+        _currentGrownMeter += waterReceived;
         if (_currentGrownMeter >= _fullyGrownMeter / 3)
         {
             _spriteRenderer.sprite = _plantStagesSprites[0];
@@ -35,6 +36,5 @@ public class GardenManager : MonoBehaviour
             Destroy(this);
         }
 
-        _startingGrowMeter = _currentGrownMeter;
     }
 }
