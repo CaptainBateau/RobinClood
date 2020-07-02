@@ -42,7 +42,7 @@ public class GardenManager : MonoBehaviour
         if(_currentGrownMeter >= _fullyGrownMeter)
         {
             _spriteRenderer.sprite = _plantStagesSprites[3];
-            _particles.Play();
+            _particles.gameObject.SetActive(true);
             Timer._gardensToWater.Remove(this);
             Destroy(this);
 
