@@ -18,6 +18,12 @@ public class PoolManager : MonoBehaviour
 	public float _topOfThePool;
 	public float _bottonOfThePool;
 
+	public Spawner[] _spawners;
+	public GameObject _dropletsPrefab;
+	public Vector2 _minMaxWaterDropsRange = new Vector2(0.1f, 0.5f);
+	float _dropletsTimer;
+	float _tempTimer;
+
 
 
 	private void Awake()
@@ -55,5 +61,13 @@ public class PoolManager : MonoBehaviour
 		}
 		else
 			_poolRenderer.enabled = true;
+	}
+
+	public void SpawnDrops()
+	{
+		_tempTimer = Time.time;
+		int i = Random.Range(0, _spawners.Length);
+		_dropletsTimer = Random.Range(_minMaxWaterDropsRange.x, _minMaxWaterDropsRange.y);
+		GameObject tempSpawn = _spawners[i].Spawn(_dropletsPrefab.gameObject);
 	}
 }

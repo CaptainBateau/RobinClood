@@ -28,34 +28,42 @@ public class WaterManager : MonoBehaviour
     public Sprite _deadFace;
     public Sprite _hurtFace;
     public Sprite _neutralFace;
+    bool isDead = false;
 
     private void Awake()
     {
-        // TryGetComponent<SpriteRenderer>(out _cloudSprite);
         _cloudTransform = _cloudSprite.transform;
     }
     private void Update()
     {
-        if (_isRefilling && _lastRefillTickTime + (1 / (float)_refillTickRate) < Time.time)
-            RefillCloud();
-        if (_isEmptying && _lastEmptyTickTime + (1 / (float)_emptyTickRate) < Time.time && _currentCapacity > 0)
-            EmptyCloud();
-        if(_currentCapacity == 0)
+        if (!isDead)
         {
-            _cloudSprite.sprite = _hurtFace;
-        }
-        if(!_isRefilling && !_isEmptying && _currentCapacity != 0)
-        {
-            _cloudSprite.sprite = _neutralFace;
-            if (_currentCapacity == _maxCapacity)
+            if (_isRefilling && _lastRefillTickTime + (1 / (float)_refillTickRate) < Time.time)
+                RefillCloud();
+            if (_isEmptying && _lastEmptyTickTime + (1 / (float)_emptyTickRate) < Time.time && _currentCapacity > 0)
+                EmptyCloud();
+            if (_currentCapacity == 0)
             {
-                _cloudSprite.sprite = _fullFace;
+                //DESECHE
+                _cloudSprite.sprite = _hurtFace;
+            }
+            if (!_isRefilling && !_isEmptying && _currentCapacity != 0)
+            {
+                _cloudSprite.sprite = _neutralFace;
+                if (_currentCapacity == _maxCapacity)
+                {
+                    _cloudSprite.sprite = _fullFace;
+                }
+            }
+
+            if (_isWoobling)
+            {
+                WoobleCloud();
             }
         }
-
-        if (_isWoobling)
+        else
         {
-            WoobleCloud();
+            _cloudSprite.sprite = _deadFace;
         }
     }
 
@@ -98,12 +106,13 @@ public class WaterManager : MonoBehaviour
         }
     }
 
-    public void LoseWater(float waterLost = 0) 
+    public void LoseWater(float waterLost) 
     {
         if (_currentCapacity < waterLost)
         {
             //Lose the game
-            _cloudSprite.sprite = _deadFace;
+
+            isDead = true;
 
         }
         _currentCapacity -= waterLost;
