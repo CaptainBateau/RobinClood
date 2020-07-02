@@ -12,7 +12,7 @@ public class Timer : MonoBehaviour
     public CloudManager _cloud;
     public ShadowManager _shadow;
 
-    public static List<GardenManager> _gardensToWater;
+    public static List<GardenManager> _gardensToWater = new List<GardenManager>();
 
     void Update()
     {
@@ -52,7 +52,7 @@ public class Timer : MonoBehaviour
 
     void Victory()
     {
-        _victoryScreen.SetActive(true);
+        //_victoryScreen.SetActive(true);
         _cloud.enabled = false;
         _shadow.enabled = false;
     }

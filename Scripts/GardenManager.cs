@@ -10,30 +10,42 @@ public class GardenManager : MonoBehaviour
 
     SpriteRenderer _spriteRenderer;
     public Sprite[] _plantStagesSprites;
+    public ParticleSystem _particles;
 
     private void Awake()
     {
         _spriteRenderer = this.GetComponent<SpriteRenderer>();
         _currentGrownMeter = _startingGrowMeter;
     }
+    private void Start()
+    {
+        Timer._gardensToWater.Add(this);
+    }
 
     public void Grow(float waterReceived)
     {
         _currentGrownMeter += waterReceived;
-        if (_currentGrownMeter >= _fullyGrownMeter / 3)
+        if (_currentGrownMeter >= _fullyGrownMeter / 4)
         {
             _spriteRenderer.sprite = _plantStagesSprites[0];
         }
 
-        if (_currentGrownMeter >= _fullyGrownMeter *2 / 3)
+        if (_currentGrownMeter >= _fullyGrownMeter *2 / 4)
         {
             _spriteRenderer.sprite = _plantStagesSprites[1];
         }
 
-        if (_currentGrownMeter >= _fullyGrownMeter)
+        if (_currentGrownMeter >= _fullyGrownMeter*3/4)
         {
             _spriteRenderer.sprite = _plantStagesSprites[2];
+        }
+        if(_currentGrownMeter >= _fullyGrownMeter)
+        {
+            _spriteRenderer.sprite = _plantStagesSprites[3];
+            _particles.Play();
+            Timer._gardensToWater.Remove(this);
             Destroy(this);
+
         }
 
     }

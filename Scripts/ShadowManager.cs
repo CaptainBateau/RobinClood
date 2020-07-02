@@ -21,6 +21,8 @@ public class ShadowManager : MonoBehaviour
     public Vector2 _minMaxWaterDropsRange = new Vector2 (0.1f,0.5f);
     float _dropletsTimer;
     float _tempTimer;
+    float _vacuumTimer;
+    public float _vacuumDelay;
 
     WaterManager waterManager;
     GardenManager gardenManager;
@@ -28,11 +30,10 @@ public class ShadowManager : MonoBehaviour
 
     GameObject gameObjectTemp;
 
-    Rigidbody2D rb;
+    public Vector2 _minMaxScaleRange = new Vector2(0.8f, 1.2f);
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         waterManager = GetComponentInParent<WaterManager>();
     }
 
@@ -41,9 +42,11 @@ public class ShadowManager : MonoBehaviour
         
         transform.Translate(Input.GetAxis("Vertical") * Vector3.up * _Speed * Time.deltaTime);
         transform.localPosition = new Vector2(0, Mathf.Clamp(transform.localPosition.y, -_minMaxShadowDistanceRange.y, -_minMaxShadowDistanceRange.x));
-
-        if (Input.GetKey(KeyCode.Space) && overPool)
+        float temp = Mathf.Lerp(_minMaxScaleRange.y, _minMaxScaleRange.x, Mathf.InverseLerp(-_minMaxShadowDistanceRange.y, -_minMaxShadowDistanceRange.x, transform.localPosition.y));
+        transform.localScale = new Vector3(temp,temp,1);
+        if (Input.GetKey(KeyCode.Space) && overPool && Time.time>_vacuumTimer+_vacuumDelay)
         {
+            _vacuumTimer = Time.time;
             Vacuum();
         }
         if (Input.GetKey(KeyCode.Space) && overGarden && waterManager._currentCapacity > 0)
@@ -66,8 +69,11 @@ public class ShadowManager : MonoBehaviour
         waterManager._isRefilling = true;
         if (gameObjectTemp.TryGetComponent<PoolManager>(out poolManager))
         {
-            poolManager.RemoveWater(_waterDrunkBySecond);
-            poolManager.SpawnDrops();
+            if (poolManager._currentCapacity >= poolManager._maxCapacity / 10)
+            {
+                poolManager.RemoveWater(_waterDrunkBySecond * (float)1 / _vacuumDelay);
+                poolManager.SpawnDrops();
+            }
         }
     }
 

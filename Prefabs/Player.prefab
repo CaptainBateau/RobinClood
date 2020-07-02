@@ -199,7 +199,7 @@ MonoBehaviour:
   _refillPerTick: 5
   _refillTickRate: 5
   _isEmptying: 0
-  _emptyPerTick: 15
+  _emptyPerTick: 5
   _emptyTickRate: 5
   _cloudSprite: {fileID: 5028515540576422823}
   _faceSprites:
@@ -553,9 +553,10 @@ MonoBehaviour:
   - {fileID: 5028515539490866514}
   - {fileID: 5028515538742989840}
   - {fileID: 5028515540309173416}
-  _dropletsPrefab: {fileID: 6523692443303975962, guid: 969004fd990bfbe4dacb399c9b5345fc,
+  _dropletsPrefab: {fileID: 213839002407399389, guid: 7293baba9a682174c9e7399720fedd26,
     type: 3}
   _minMaxWaterDropsRange: {x: 0.1, y: 0.5}
+  _vacuumDelay: 0.5
 --- !u!50 &5028515539786677651
 Rigidbody2D:
   serializedVersion: 4
