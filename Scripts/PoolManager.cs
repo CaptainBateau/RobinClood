@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-
+	public SpriteRenderer _poolRenderer;
 	public Sprite[] _sprites;
 	public float _refillPerSecond = 10;
 	public int _tickPerSecond;
@@ -14,6 +14,8 @@ public class PoolManager : MonoBehaviour
 	float _refillTimer;
 
 	float _tickTime;
+
+
 	private void Awake()
 	{
 		_currentCapacity = _maxCapacity;
