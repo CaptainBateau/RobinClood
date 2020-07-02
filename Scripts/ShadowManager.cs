@@ -73,10 +73,10 @@ public class ShadowManager : MonoBehaviour
     void Release()
     {
         waterManager._isEmptying = true;
-        if (gameObjectTemp.TryGetComponent<GardenManager>(out gardenManager))
-        {
-            gardenManager.Grow(_waterReleasedBySecond);
-        }
+        //if (gameObjectTemp.TryGetComponent<GardenManager>(out gardenManager))
+        //{
+        //    gardenManager.Grow(_waterReleasedBySecond);
+        //}
 
     }
 

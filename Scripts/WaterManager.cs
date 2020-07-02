@@ -28,10 +28,10 @@ public class WaterManager : MonoBehaviour
     public Sprite _deadFace;
     public Sprite _hurtFace;
     public Sprite _neutralFace;
+    bool isDead = false;
 
     private void Awake()
     {
-        // TryGetComponent<SpriteRenderer>(out _cloudSprite);
         _cloudTransform = _cloudSprite.transform;
     }
     private void Update()
@@ -104,6 +104,7 @@ public class WaterManager : MonoBehaviour
         {
             //Lose the game
             _cloudSprite.sprite = _deadFace;
+            isDead = true;
 
         }
         _currentCapacity -= waterLost;
