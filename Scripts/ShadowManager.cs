@@ -38,7 +38,7 @@ public class ShadowManager : MonoBehaviour
 
     public void Update()
     {
-        if (-_minMaxShadowMovementRange.x > transform.position.x && transform.position.x > -_minMaxShadowMovementRange.y)
+        if (-_minMaxShadowMovementRange.x > transform.localPosition.y && transform.localPosition.y > -_minMaxShadowMovementRange.y)
         {
             rb.velocity = Vector2.up * Input.GetAxisRaw("Vertical") * _Speed * Time.deltaTime;
         }
@@ -48,7 +48,7 @@ public class ShadowManager : MonoBehaviour
         {
             Vacuum();
         }
-        if (Input.GetKey(KeyCode.Space) && overGarden)
+        if (Input.GetKey(KeyCode.Space) && overGarden && waterManager._currentCapacity>0)
         {
             Release();
             if (Time.time > _tempTimer + _dropletsTimer)
@@ -88,6 +88,7 @@ public class ShadowManager : MonoBehaviour
         int i = Random.Range(0, _waterDropsSpawner.Length);
         _dropletsTimer = Random.Range(_minMaxWaterDropsRange.x, _minMaxWaterDropsRange.y);
         GameObject tempSpawn = _waterDropsSpawner[i].Spawn(_dropletsPrefab.gameObject);
+        waterManager.DropWater();
     }
 
 
