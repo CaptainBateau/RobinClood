@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 10
   _missileLifeTime: 3
-  _waterLostOnHit: 10
+  _waterLostOnHit: 2
 --- !u!60 &8674675063804836468
 PolygonCollider2D:
   m_ObjectHideFlags: 0
