@@ -5,6 +5,10 @@ using UnityEngine;
 public class ShadowManager : MonoBehaviour
 {
     public float _Speed;
+    public float _waterDrunkBySecond;
+    public float _waterReleasedBySecond;
+
+    public Vector2 _minMaxShadowMovementRange;
 
     public LayerMask _poolLayerMask;
     public LayerMask _gardenLayerMask;
@@ -14,11 +18,18 @@ public class ShadowManager : MonoBehaviour
 
     public Spawner[] _waterDropsSpawner;
     public GameObject _dropletsPrefab;
+    public Vector2 _minMaxWaterDropsRange = new Vector2 (0.1f,0.5f);
+    float _dropletsTimer;
+    float _tempTimer;
 
     WaterManager waterManager;
+    GardenManager gardenManager;
+    PoolManager poolManager;
+
+    GameObject gameObjectTemp;
 
     Rigidbody2D rb;
-    int i;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -27,7 +38,10 @@ public class ShadowManager : MonoBehaviour
 
     public void Update()
     {
-        rb.velocity = Vector2.up * Input.GetAxisRaw("Vertical") * _Speed * Time.deltaTime;
+        if (-_minMaxShadowMovementRange.x > transform.position.x && transform.position.x > -_minMaxShadowMovementRange.y)
+        {
+            rb.velocity = Vector2.up * Input.GetAxisRaw("Vertical") * _Speed * Time.deltaTime;
+        }
 
         //transform.Translate(Input.GetAxis("Vertical") * Vector3.up * _Speed * Time.deltaTime);
         if (Input.GetKey(KeyCode.Space) && overPool)
@@ -37,34 +51,57 @@ public class ShadowManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && overGarden)
         {
             Release();
+            if (Time.time > _tempTimer + _dropletsTimer)
+            {
+                SpawnDrops();
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            waterManager._isRefilling = false;
+            waterManager._isEmptying = false;
         }
     }
 
     void Vacuum()
     {
-        waterManager.RefillCloud();
+        waterManager._isRefilling = true;
+        if (gameObjectTemp.TryGetComponent<PoolManager>(out poolManager))
+        {
+            poolManager.RemoveWater(_waterDrunkBySecond);
+        }
     }
 
     void Release()
     {
-        waterManager.EmptyCloud();
-        for (int i = 0; i < _waterDropsSpawner.Length; i++)
+        waterManager._isEmptying = true;
+        if (gameObjectTemp.TryGetComponent<GardenManager>(out gardenManager))
         {
-            GameObject tempSpawn = _waterDropsSpawner[i].Spawn(_dropletsPrefab.gameObject);
+            gardenManager.Grow(_waterReleasedBySecond);
         }
 
-
     }
+
+    void SpawnDrops()
+    {
+        _tempTimer = Time.time;
+        int i = Random.Range(0, _waterDropsSpawner.Length);
+        _dropletsTimer = Random.Range(_minMaxWaterDropsRange.x, _minMaxWaterDropsRange.y);
+        GameObject tempSpawn = _waterDropsSpawner[i].Spawn(_dropletsPrefab.gameObject);
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.layer == LayerMask.NameToLayer("Pool"))
         {
             overPool = true;
+            gameObjectTemp = collider.gameObject;
         }
         if (collider.gameObject.layer == LayerMask.NameToLayer("Garden"))
         {
             overGarden = true;
+            gameObjectTemp = collider.gameObject;
         }
     }
 
@@ -73,10 +110,12 @@ public class ShadowManager : MonoBehaviour
         if (collider.gameObject.layer == LayerMask.NameToLayer("Pool"))
         {
             overPool = false;
+            gameObjectTemp = null;
         }
         if (collider.gameObject.layer == LayerMask.NameToLayer("Garden"))
         {
             overGarden = false;
+            gameObjectTemp = null;
         }
     }
 }
