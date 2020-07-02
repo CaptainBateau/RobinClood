@@ -8,8 +8,11 @@ public class Timer : MonoBehaviour
     public float _targetTime = 60.0f;
     public Text _timerText;
     public GameObject _gameOverScreen;
+    public GameObject _victoryScreen;
     public CloudManager _cloud;
     public ShadowManager _shadow;
+
+    public static List<GardenManager> _gardensToWater;
 
     void Update()
     {
@@ -34,11 +37,22 @@ public class Timer : MonoBehaviour
             GameOver();
         }
 
+        if (_targetTime >= 0f && _gardensToWater.Count == 0)
+        {
+            Victory();
+        }
     }
 
     void GameOver()
     {
         _gameOverScreen.SetActive(true);
+        _cloud.enabled = false;
+        _shadow.enabled = false;
+    }
+
+    void Victory()
+    {
+        _victoryScreen.SetActive(true);
         _cloud.enabled = false;
         _shadow.enabled = false;
     }

@@ -67,6 +67,7 @@ public class ShadowManager : MonoBehaviour
         if (gameObjectTemp.TryGetComponent<PoolManager>(out poolManager))
         {
             poolManager.RemoveWater(_waterDrunkBySecond);
+            poolManager.SpawnDrops();
         }
     }
 
