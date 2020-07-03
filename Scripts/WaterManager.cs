@@ -141,6 +141,7 @@ public class WaterManager : MonoBehaviour
     IEnumerator HurtFaceReset()
     {
         yield return new WaitForSeconds(_hurtTimer);
+        isHurt = false;
     }
 
     bool _isWoobling;
