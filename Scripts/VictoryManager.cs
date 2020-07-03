@@ -21,7 +21,6 @@ public class VictoryManager : MonoBehaviour
     public GameObject _victoryScreen;
     public CloudManager _cloud;
     public ShadowManager _shadow;
-
     public static List<GardenManager> _gardensToWater = new List<GardenManager>();
     private void Awake()
     {
@@ -30,6 +29,7 @@ public class VictoryManager : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log("Taille " + _gardensToWater.Count);
         t += Time.deltaTime;
         _targetTime -= Time.deltaTime;
 
@@ -54,7 +54,7 @@ public class VictoryManager : MonoBehaviour
             GameOver();
         }
 
-        if (/*_targetTime >= _endTime &&*/ _gardensToWater.Count == 0)
+        if (_gardensToWater.Count == 0)
         {
             Victory();
         }

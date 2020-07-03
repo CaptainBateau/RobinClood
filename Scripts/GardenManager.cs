@@ -44,10 +44,15 @@ public class GardenManager : MonoBehaviour
             _spriteRenderer.sprite = _plantStagesSprites[3];
             if(_particles!=null)
                 _particles.gameObject.SetActive(true);
-            VictoryManager._gardensToWater.Remove(this);
-            Destroy(this);
+            DestroyMe();
 
         }
 
+    }
+
+    public void DestroyMe()
+    {
+        VictoryManager._gardensToWater.Remove(this);
+        Destroy(this);
     }
 }
