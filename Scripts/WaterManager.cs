@@ -73,8 +73,8 @@ public class WaterManager : MonoBehaviour
         {
             _cloudSprite.sprite = _deadFace;
         }
-
-        _waterGauge.transform.localScale = new Vector3(1,(_currentCapacity/(float)_maxCapacity)/8,1);
+        if(_waterGauge != null)
+            _waterGauge.transform.localScale = new Vector3(1,(_currentCapacity/(float)_maxCapacity)/8,1);
     }
 
     public void RefillCloud()
