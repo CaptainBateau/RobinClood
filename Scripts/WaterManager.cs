@@ -69,12 +69,13 @@ public class WaterManager : MonoBehaviour
                 WoobleCloud();
             }
         }
+        //0 -> -5
         else
         {
             _cloudSprite.sprite = _deadFace;
         }
         if(_waterGauge != null)
-            _waterGauge.transform.localScale = new Vector3(1,(_currentCapacity/(float)_maxCapacity)/8,1);
+            _waterGauge.transform.localPosition = new Vector3(0,Mathf.Lerp(-5,0,_currentCapacity/_maxCapacity),0);
     }
 
     public void RefillCloud()
