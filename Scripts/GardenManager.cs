@@ -19,7 +19,7 @@ public class GardenManager : MonoBehaviour
     }
     private void Start()
     {
-        Timer._gardensToWater.Add(this);
+        VictoryManager._gardensToWater.Add(this);
     }
 
     public void Grow(float waterReceived)
@@ -43,7 +43,7 @@ public class GardenManager : MonoBehaviour
         {
             _spriteRenderer.sprite = _plantStagesSprites[3];
             _particles.gameObject.SetActive(true);
-            Timer._gardensToWater.Remove(this);
+            VictoryManager._gardensToWater.Remove(this);
             Destroy(this);
 
         }

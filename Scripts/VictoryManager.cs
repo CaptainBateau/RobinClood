@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Timer : MonoBehaviour
+public class VictoryManager : MonoBehaviour
 {
     float _maximumTimeValue;
     public float _targetTime = 60.0f;

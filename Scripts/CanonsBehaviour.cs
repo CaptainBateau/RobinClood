@@ -69,7 +69,7 @@ public class CanonsBehaviour : MonoBehaviour
         {
             GameObject tempSpawn = _cannonsTip[i].Spawn(_projectilePrefab.gameObject);
         }
-        _lerpedValue = FindObjectOfType<Timer>()._lerpedValue;
+        _lerpedValue = FindObjectOfType<VictoryManager>()._lerpedValue;
         ShootReloadMuliplier();
         CountdownShoot();
     }
