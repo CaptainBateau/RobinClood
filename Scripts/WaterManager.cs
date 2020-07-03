@@ -33,6 +33,7 @@ public class WaterManager : MonoBehaviour
     bool isHurt = false;
 
 
+    public GameObject _waterGauge;
 
     private void Awake()
     {
@@ -46,7 +47,7 @@ public class WaterManager : MonoBehaviour
                 RefillCloud();
             if (_isEmptying && _lastEmptyTickTime + (1 / (float)_emptyTickRate) < Time.time && _currentCapacity > 0)
                 EmptyCloud();
-            if (_currentCapacity == 0)
+            if (_currentCapacity == 0 && !isHurt)
             {
                 _cloudSprite.sprite = _dryFace;
             }
@@ -72,6 +73,8 @@ public class WaterManager : MonoBehaviour
         {
             _cloudSprite.sprite = _deadFace;
         }
+
+        _waterGauge.transform.localScale = new Vector3(1,(_currentCapacity/(float)_maxCapacity)/8,1);
     }
 
     public void RefillCloud()
