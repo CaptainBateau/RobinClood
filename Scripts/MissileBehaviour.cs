@@ -25,6 +25,10 @@ public class MissileBehaviour : MonoBehaviour
         {
             waterManager.LoseWater(_waterLostOnHit);
         }
-        Destroy(this.gameObject);
+        CloudManager cloudManager;
+        if (collider.gameObject.TryGetComponent<CloudManager>(out cloudManager))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
