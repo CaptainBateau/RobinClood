@@ -28,13 +28,15 @@ public class ShadowManager : MonoBehaviour
     GardenManager gardenManager;
     PoolManager poolManager;
 
-    GameObject gameObjectTemp;
+    GameObject gameObjectTempGarden;
+    GameObject gameObjectTempPool;
 
     public Vector2 _minMaxScaleRange = new Vector2(0.8f, 1.2f);
-
+    Vector3 _startingScale;
     private void Awake()
     {
         waterManager = GetComponentInParent<WaterManager>();
+        _startingScale = transform.localScale;
     }
 
     public void Update()
@@ -43,7 +45,7 @@ public class ShadowManager : MonoBehaviour
         transform.Translate(Input.GetAxis("Vertical") * Vector3.up * _Speed * Time.deltaTime);
         transform.localPosition = new Vector2(0, Mathf.Clamp(transform.localPosition.y, -_minMaxShadowDistanceRange.y, -_minMaxShadowDistanceRange.x));
         float temp = Mathf.Lerp(_minMaxScaleRange.y, _minMaxScaleRange.x, Mathf.InverseLerp(-_minMaxShadowDistanceRange.y, -_minMaxShadowDistanceRange.x, transform.localPosition.y));
-        transform.localScale = new Vector3(temp,temp,1);
+        transform.localScale = new Vector3(_startingScale.x*temp, _startingScale.y* temp,1);
         if (Input.GetKey(KeyCode.Space) && overPool && Time.time>_vacuumTimer+_vacuumDelay)
         {
             _vacuumTimer = Time.time;
@@ -67,7 +69,7 @@ public class ShadowManager : MonoBehaviour
     void Vacuum()
     {
         waterManager._isRefilling = true;
-        if (gameObjectTemp.TryGetComponent<PoolManager>(out poolManager))
+        if (gameObjectTempPool.TryGetComponent<PoolManager>(out poolManager))
         {
             if (poolManager._currentCapacity >= poolManager._maxCapacity / 10)
             {
@@ -80,11 +82,6 @@ public class ShadowManager : MonoBehaviour
     void Release()
     {
         waterManager._isEmptying = true;
-        //if (gameObjectTemp.TryGetComponent<GardenManager>(out gardenManager))
-        //{
-        //    gardenManager.Grow(_waterReleasedBySecond);
-        //}
-
     }
 
     void SpawnDrops()
@@ -103,12 +100,12 @@ public class ShadowManager : MonoBehaviour
         if (collider.gameObject.layer == LayerMask.NameToLayer("Pool"))
         {
             overPool = true;
-            gameObjectTemp = collider.gameObject;
+            gameObjectTempPool = collider.gameObject;
         }
         if (collider.gameObject.layer == LayerMask.NameToLayer("Garden"))
         {
             overGarden = true;
-            gameObjectTemp = collider.gameObject;
+            gameObjectTempGarden = collider.gameObject;
         }
     }
 
@@ -117,12 +114,12 @@ public class ShadowManager : MonoBehaviour
         if (collider.gameObject.layer == LayerMask.NameToLayer("Pool"))
         {
             overPool = false;
-            gameObjectTemp = null;
+            gameObjectTempPool = null;
         }
         if (collider.gameObject.layer == LayerMask.NameToLayer("Garden"))
         {
             overGarden = false;
-            gameObjectTemp = null;
+            gameObjectTempGarden = null;
         }
     }
 }
