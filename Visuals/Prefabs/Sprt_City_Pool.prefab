@@ -249,10 +249,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _poolRenderer: {fileID: 3136662380289632568}
   _sprites: []
-  _refillPerSecond: 10
+  _refillPerSecond: 5
   _refreshPerSecond: 10
-  _maxCapacity: 20
-  _currentCapacity: 20
+  _maxCapacity: 40
+  _currentCapacity: 40
   _topOfThePool: 0.043
   _bottonOfThePool: -0.362
   _spawners:

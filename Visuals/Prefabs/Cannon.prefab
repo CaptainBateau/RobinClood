@@ -306,7 +306,7 @@ MonoBehaviour:
   _projectilePrefab: {fileID: -2438668270815703199, guid: e97fe1f18f78740449ad54731c19fc65,
     type: 3}
   _lookTowardSpeed: 180
-  _shootReload: 10
+  _shootReload: 1
 --- !u!1 &7578482517349562528
 GameObject:
   m_ObjectHideFlags: 0

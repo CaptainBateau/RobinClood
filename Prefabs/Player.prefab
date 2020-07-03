@@ -202,12 +202,8 @@ MonoBehaviour:
   _emptyPerTick: 5
   _emptyTickRate: 5
   _cloudSprite: {fileID: 5028515540576422823}
-  _faceSprites:
-  - {fileID: 21300000, guid: 33a70bdb949a7fa418b1444bcbe51b5b, type: 3}
-  - {fileID: 21300000, guid: 9ea2cb2f5bfce194aa28115255056cb7, type: 3}
-  - {fileID: 21300000, guid: 0f1efa5e2889ab34bac50bbc5ac20a8e, type: 3}
-  - {fileID: 21300000, guid: f919d139c5f43054a83d5636cfcf4d55, type: 3}
   _pissingFace: {fileID: 21300000, guid: 43117ee1e71f53445adc679978c50592, type: 3}
+  _dryFace: {fileID: 21300000, guid: 0054e90b8158bae48ad38ec575365aef, type: 3}
   _fillingFace: {fileID: 21300000, guid: 0f1efa5e2889ab34bac50bbc5ac20a8e, type: 3}
   _fullFace: {fileID: 21300000, guid: f919d139c5f43054a83d5636cfcf4d55, type: 3}
   _deadFace: {fileID: 21300000, guid: 4c60e0d666a12294398631df93444869, type: 3}
@@ -283,6 +279,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _woobleMaxTimer: 0.5
+  _hurtTimer: 1
 --- !u!60 &5028515539677485821
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -557,6 +554,7 @@ MonoBehaviour:
     type: 3}
   _minMaxWaterDropsRange: {x: 0.1, y: 0.5}
   _vacuumDelay: 0.5
+  _minMaxScaleRange: {x: 0.8, y: 1.2}
 --- !u!50 &5028515539786677651
 Rigidbody2D:
   serializedVersion: 4
