@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaterManager : MonoBehaviour
 {
@@ -20,15 +21,18 @@ public class WaterManager : MonoBehaviour
 
     public SpriteRenderer _cloudSprite;
     Transform _cloudTransform;
-    public Sprite[] _faceSprites;
 
     public Sprite _pissingFace;
+    public Sprite _dryFace;
     public Sprite _fillingFace;
     public Sprite _fullFace;
     public Sprite _deadFace;
     public Sprite _hurtFace;
     public Sprite _neutralFace;
     bool isDead = false;
+    bool isHurt = false;
+
+
 
     private void Awake()
     {
@@ -44,16 +48,19 @@ public class WaterManager : MonoBehaviour
                 EmptyCloud();
             if (_currentCapacity == 0)
             {
-                //DESECHE
-                _cloudSprite.sprite = _hurtFace;
+                _cloudSprite.sprite = _dryFace;
             }
-            if (!_isRefilling && !_isEmptying && _currentCapacity != 0)
+            if (!_isRefilling && !_isEmptying && _currentCapacity != 0 && !isHurt)
             {
                 _cloudSprite.sprite = _neutralFace;
                 if (_currentCapacity == _maxCapacity)
                 {
                     _cloudSprite.sprite = _fullFace;
                 }
+            }
+            if (isHurt)
+            {
+                _cloudSprite.sprite = _hurtFace;
             }
 
             if (_isWoobling)
@@ -95,13 +102,11 @@ public class WaterManager : MonoBehaviour
     {
         if (_currentCapacity >= _emptyPerTick)
         {
-            DropWaterPower(_emptyPerTick);
             _currentCapacity -= _emptyPerTick;
             _currentCapacity = Mathf.Clamp(_currentCapacity, 0, _maxCapacity);
         }
         else if (_currentCapacity > 0 && _currentCapacity < _emptyPerTick)
         {
-            DropWaterPower(_emptyPerTick / (float)_currentCapacity);
             _currentCapacity = 0;
         }
     }
@@ -114,15 +119,12 @@ public class WaterManager : MonoBehaviour
 
             isDead = true;
 
+
         }
         _currentCapacity -= waterLost;
         _currentCapacity = Mathf.Clamp(_currentCapacity, 0, _maxCapacity);
-    }
-
-
-    public void DropWaterPower(float power = 1)
-    {
-        Debug.Log("POWERRRRRR " + power);
+        isHurt = true;
+        StartCoroutine(HurtFaceReset());
     }
 
     public void WoobleCloud()
@@ -136,9 +138,17 @@ public class WaterManager : MonoBehaviour
         }
     }
 
+    IEnumerator HurtFaceReset()
+    {
+        yield return new WaitForSeconds(_hurtTimer);
+        isHurt = false;
+    }
+
     bool _isWoobling;
     bool _isGrowing;
     public AnimationCurve _growthCurve;
     public float _woobleMaxTimer;
     float _woobleStartTimer;
+    public float _hurtTimer = 1f;
+
 }

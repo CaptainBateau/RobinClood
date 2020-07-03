@@ -344,7 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _poolRenderer: {fileID: 240626664}
   _sprites: []
-  _refillPerSecond: 10
+  _refillPerSecond: 80
   _refreshPerSecond: 25
   _maxCapacity: 500
   _currentCapacity: 500
@@ -1301,6 +1301,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5028515539677485809, guid: 5f48228e7d6cc1648aa3c2ad983019c6,
+        type: 3}
+      propertyPath: _dryFace
+      value: 
+      objectReference: {fileID: 21300000, guid: 0054e90b8158bae48ad38ec575365aef,
+        type: 3}
     - target: {fileID: 5028515539677485811, guid: 5f48228e7d6cc1648aa3c2ad983019c6,
         type: 3}
       propertyPath: m_Name
@@ -1400,6 +1406,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -39.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5028515539786677652, guid: 5f48228e7d6cc1648aa3c2ad983019c6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 5028515540576422822, guid: 5f48228e7d6cc1648aa3c2ad983019c6,
         type: 3}
