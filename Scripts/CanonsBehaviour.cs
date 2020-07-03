@@ -9,6 +9,9 @@ public class CanonsBehaviour : MonoBehaviour
     public Spawner[] _cannonsTip;
     public MissileBehaviour _projectilePrefab;
 
+    public float _attackSpeedModifier = 10f;
+    float _lerpedValue;
+
     Vector3 _targetDirection;
     Vector3 _localLookVector = Vector3.up;
     Vector3 _rotationAxis = Vector3.forward;
@@ -21,9 +24,11 @@ public class CanonsBehaviour : MonoBehaviour
 
     [Range(.1f,10f)]
     public float _shootReload = 5f;
+    float _currentShootReload;
 
     private void Awake()
     {
+        _currentShootReload = _shootReload;
         CountdownShoot();
     }
 
@@ -32,6 +37,7 @@ public class CanonsBehaviour : MonoBehaviour
         _worldLookAxis = transform.TransformDirection(_localLookVector).normalized;
         _targetDirection = (_target.position - transform.position).normalized;
 
+        Debug.Log((_lerpedValue * _attackSpeedModifier).ToString());
         //if (Mathf.Abs(_delta) == 180f)
         if (Vector3.Dot(_worldLookAxis, _targetDirection) == -1) // might want to change for previous condition
         {
@@ -46,9 +52,15 @@ public class CanonsBehaviour : MonoBehaviour
         transform.Rotate(_rotationAxis, _rotationStep, Space.World);
     }
 
+    void ShootReloadMuliplier()
+    {
+        if (_lerpedValue * _attackSpeedModifier > 0 && _lerpedValue * _attackSpeedModifier < _shootReload - _shootReload/5)
+            _currentShootReload = _shootReload - (_lerpedValue * _attackSpeedModifier);
+    }
+
     void CountdownShoot()
     {
-        Invoke("Shoot",_shootReload);
+        Invoke("Shoot",_currentShootReload);
     }
 
     void Shoot()
@@ -57,6 +69,8 @@ public class CanonsBehaviour : MonoBehaviour
         {
             GameObject tempSpawn = _cannonsTip[i].Spawn(_projectilePrefab.gameObject);
         }
-        Invoke("CountdownShoot",0);
+        _lerpedValue = FindObjectOfType<Timer>()._lerpedValue;
+        ShootReloadMuliplier();
+        CountdownShoot();
     }
 }
