@@ -69,7 +69,6 @@ public class WaterManager : MonoBehaviour
                 WoobleCloud();
             }
         }
-        //0 -> -5
         else
         {
             _cloudSprite.sprite = _deadFace;
@@ -120,7 +119,7 @@ public class WaterManager : MonoBehaviour
         if (_currentCapacity < waterLost)
         {
             //Lose the game
-
+            FindObjectOfType<VictoryManager>().GameOver();
             isDead = true;
 
 

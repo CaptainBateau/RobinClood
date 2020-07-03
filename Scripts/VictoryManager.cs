@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class VictoryManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class VictoryManager : MonoBehaviour
 
     public float _lerpedValue;
 
+    EventSystem ES;
 
 
     //public Text _timerText;
@@ -24,6 +26,7 @@ public class VictoryManager : MonoBehaviour
     private void Awake()
     {
         _maximumTimeValue = _targetTime;
+        ES = FindObjectOfType<EventSystem>();
     }
     void Update()
     {
@@ -57,7 +60,7 @@ public class VictoryManager : MonoBehaviour
         }
     }
 
-    void GameOver()
+    public void GameOver()
     {
         _gameOverScreen.SetActive(true);
         _cloud.enabled = false;
