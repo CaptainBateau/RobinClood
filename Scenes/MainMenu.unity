@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 4
-    m_SelectOnUp: {fileID: 1677735405}
+    m_SelectOnUp: {fileID: 638823063}
     m_SelectOnDown: {fileID: 726837323}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
@@ -301,8 +301,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 4
-    m_SelectOnUp: {fileID: 361218911}
-    m_SelectOnDown: {fileID: 1677735405}
+    m_SelectOnUp: {fileID: 1677735405}
+    m_SelectOnDown: {fileID: 361218911}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1677735403}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1067586373
@@ -1062,7 +1062,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_SelectOnUp: {fileID: 726837323}
-    m_SelectOnDown: {fileID: 361218911}
+    m_SelectOnDown: {fileID: 638823063}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1

@@ -29,7 +29,6 @@ public class VictoryManager : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log("Taille " + _gardensToWater.Count);
         t += Time.deltaTime;
         _targetTime -= Time.deltaTime;
 
