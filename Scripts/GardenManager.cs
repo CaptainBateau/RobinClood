@@ -42,7 +42,8 @@ public class GardenManager : MonoBehaviour
         if(_currentGrownMeter >= _fullyGrownMeter)
         {
             _spriteRenderer.sprite = _plantStagesSprites[3];
-            _particles.gameObject.SetActive(true);
+            if(_particles!=null)
+                _particles.gameObject.SetActive(true);
             VictoryManager._gardensToWater.Remove(this);
             Destroy(this);
 
