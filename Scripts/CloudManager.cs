@@ -13,10 +13,6 @@ public class CloudManager : MonoBehaviour
 		resX = Screen.currentResolution.width/1000f;
 		
 	}
-	private void Start()
-	{
-		
-	}
 	void Update()
 	{
 		transform.Translate(Input.GetAxis("Horizontal") * Vector3.right * _horizontalSpeed * Time.deltaTime);

@@ -37,7 +37,7 @@ public class CanonsBehaviour : MonoBehaviour
         _worldLookAxis = transform.TransformDirection(_localLookVector).normalized;
         _targetDirection = (_target.position - transform.position).normalized;
 
-        Debug.Log((_lerpedValue * _attackSpeedModifier).ToString());
+
         //if (Mathf.Abs(_delta) == 180f)
         if (Vector3.Dot(_worldLookAxis, _targetDirection) == -1) // might want to change for previous condition
         {
